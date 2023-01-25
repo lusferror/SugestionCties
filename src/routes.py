@@ -35,10 +35,11 @@ def search():#this funtion search suggestion
 
     # function
     try:
-        name = request.args.get('q')
+        name = (request.args.get('q')).capitalize()
+        print(name.capitalize())
         latitude = float(request.args.get('latitude'))
         longitude = float(request.args.get('longitude'))
-        query = db.select(Cities).where(Cities.name.like("%"+name+"%"))
+        query = db.select(Cities).where(db.or_(Cities.name.like("% "+name+"%"),Cities.name.like(name+"%")))
         cities = db.engine.connect().execute(query)
 
         for citie in cities:
@@ -61,7 +62,7 @@ def search():#this funtion search suggestion
         def sort_score(citie):
             return citie['score']
         
-        cities_array.sort(key=sort_score)
+        cities_array.sort(key=sort_score, reverse=True)
         return jsonify({'search':cities_array}),200
     
     except Exception as e:
