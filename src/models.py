@@ -22,3 +22,6 @@ class Cities(db.Model):
     dem = db.Column(db.String(300),nullable=True)
     tz = db.Column(db.String(300),nullable=True)
     modified_at = db.Column(db.String(300),nullable=True)
+
+    def __repr__(self) -> str:
+        return super().__repr__()
