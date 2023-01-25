@@ -56,7 +56,7 @@ def search():#this funtion search suggestion
             cities_array.append(citie_score)
 
         for citie in cities_array:
-            citie["socore"] = round(1-(citie["score"]/max_dist),2)
+            citie["score"] = round(1-(citie["score"]/max_dist),2)
 
         def sort_score(citie):
             return citie['score']
